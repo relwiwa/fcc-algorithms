@@ -8,8 +8,7 @@
 
   module.exports = {
     convertToFahrenheit: (celsius) => {
-      console.log(typeof celsius);
-      if (typeof celsius !== Number) {
+      if (typeof celsius !== "number") {
         throw new TypeError();
       }
     },
