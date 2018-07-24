@@ -11,5 +11,6 @@
       if (typeof celsius !== "number") {
         throw new TypeError();
       }
+      return celsius;
     },
   };
