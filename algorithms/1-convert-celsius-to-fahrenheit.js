@@ -11,6 +11,6 @@
       if (typeof celsius !== "number") {
         throw new TypeError();
       }
-      return celsius;
+      return celsius * 9 / 5 + 32;
     },
   };

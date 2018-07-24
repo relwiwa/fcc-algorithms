@@ -15,4 +15,9 @@ describe('"Convert Celsius to Fahrenheit" algorithm', () => {
   it('should return a number', () => {
     expect(algorithm.convertToFahrenheit(5)).to.be.a('number');
   });
+  it('should return the input value in Celsius converted to Fahrenheit', () => {
+    expect(algorithm.convertToFahrenheit(5)).to.equal(41);
+    expect(algorithm.convertToFahrenheit(0)).to.equal(32);
+    expect(algorithm.convertToFahrenheit(-50)).to.equal(-58);
+  });
 });
