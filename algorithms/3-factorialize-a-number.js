@@ -5,6 +5,10 @@
     For example: 5! = 1 * 2 * 3 * 4 * 5 = 120
     Only integers greater than or equal to zero will be supplied to the function. */
 
-const factorialize = (num) => {};
+const factorialize = (num) => {
+  if (typeof num !== 'number') {
+    throw new TypeError;
+  }
+};
 
 module.exports = factorialize;
