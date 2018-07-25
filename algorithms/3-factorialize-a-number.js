@@ -15,7 +15,16 @@ const factorialize = (num) => {
   else if (num % 1 !== 0) {
     throw new TypeError;
   }
-  return num;
+  if (num <= 1) {
+    return num;
+  }
+  else {
+    let factorial = 1;
+    for (let i = num; i > 0; i--) {
+      factorial *= i;
+    }
+    return factorial;  
+  }
 };
 
 module.exports = factorialize;

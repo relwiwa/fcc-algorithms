@@ -35,6 +35,12 @@ describe('"Factorialize a Number" algorithm', () => {
     expect(algorithm(1)).to.equal(1);
   });
 
-
+  it('should return factorial of input value', () => {
+    expect(algorithm(2)).to.equal(2);
+    expect(algorithm(3)).to.equal(6);
+    expect(algorithm(4)).to.equal(24);
+    expect(algorithm(7)).to.equal(5040);
+    expect(algorithm(10)).to.equal(3628800);
+  });
 
 });
