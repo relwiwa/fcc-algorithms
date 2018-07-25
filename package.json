@@ -4,7 +4,7 @@
   "description": "Basic algorithms of FreeCodeCamp Certification, done in order to get familiar with testing and test-driven development",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --watch"
   },
   "author": "Walter",
   "license": "MIT",
