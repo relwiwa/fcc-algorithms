@@ -34,4 +34,10 @@ describe('"Reverse a String" algorithm', () => {
     expect(algorithm('abcd')).to.equal('dcba');
   });
 
+  it('should handle both lower and uppercase characters', () => {
+    expect(algorithm('A')).to.equal('A');
+    expect(algorithm('aB')).to.equal('Ba');
+    expect(algorithm('aBC')).to.equal('CBa');
+  });
+
 });
