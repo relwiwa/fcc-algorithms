@@ -9,6 +9,9 @@ const factorialize = (num) => {
   if (typeof num !== 'number') {
     throw new TypeError;
   }
+  else if (num < 0) {
+    throw new RangeError;
+  }
 };
 
 module.exports = factorialize;
