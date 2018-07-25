@@ -20,4 +20,8 @@ describe('"Reverse a String" algorithm', () => {
     expect(algorithm('abc')).to.be.a('string');
   });
 
+  it('should return an empty string if input is an empty string', () => {
+    expect(algorithm('')).to.equal('');
+  });
+
 });
