@@ -15,5 +15,9 @@ describe('"Reverse a String" algorithm', () => {
   it('should throw a TypeError, when there is no argument provided', () => {
     expect(() => algorithm()).to.throw(TypeError);
   });
-  
+
+  it('should return a string', () => {
+    expect(algorithm('abc')).to.be.a('string');
+  });
+
 });

@@ -6,6 +6,7 @@ const reverseString = (str) => {
   if (typeof str !== "string") {
     throw new TypeError;
   }
+  return str;
 };
 
 module.exports = reverseString;
