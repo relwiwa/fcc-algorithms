@@ -12,4 +12,8 @@ describe('"Reverse a String" algorithm', () => {
     expect(() => algorithm({}).to.throw(TypeError));
   });
 
+  it('should throw a TypeError, when there is no argument provided', () => {
+    expect(() => algorithm()).to.throw(TypeError);
+  });
+  
 });
