@@ -27,4 +27,14 @@ describe('"Factorialize a Number" algorithm', () => {
     expect(algorithm(5)).to.be.a('number');
   });
 
+  it('should return 0 when argument is 0', () => {
+    expect(algorithm(0)).to.equal(0);
+  });
+
+  it('should return 1 when argument is 1', () => {
+    expect(algorithm(1)).to.equal(1);
+  });
+
+
+
 });
