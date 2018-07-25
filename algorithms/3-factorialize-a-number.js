@@ -15,6 +15,7 @@ const factorialize = (num) => {
   else if (num % 1 !== 0) {
     throw new TypeError;
   }
+  return num;
 };
 
 module.exports = factorialize;

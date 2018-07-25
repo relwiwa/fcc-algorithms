@@ -23,4 +23,8 @@ describe('"Factorialize a Number" algorithm', () => {
     expect(() => algorithm(25.5)).to.throw(TypeError);
   });
 
+  it('should return a number', () => {
+    expect(algorithm(5)).to.be.a('number');
+  });
+
 });
