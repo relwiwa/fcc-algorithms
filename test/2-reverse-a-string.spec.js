@@ -24,4 +24,9 @@ describe('"Reverse a String" algorithm', () => {
     expect(algorithm('')).to.equal('');
   });
 
+  it('should return the same string if its length equals 1', () => {
+    expect(algorithm('a')).to.equal('a');
+  });
+
+
 });
