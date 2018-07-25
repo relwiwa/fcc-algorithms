@@ -12,6 +12,9 @@ const factorialize = (num) => {
   else if (num < 0) {
     throw new RangeError;
   }
+  else if (num % 1 !== 0) {
+    throw new TypeError;
+  }
 };
 
 module.exports = factorialize;

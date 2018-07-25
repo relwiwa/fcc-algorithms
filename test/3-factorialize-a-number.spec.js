@@ -16,6 +16,11 @@ describe('"Factorialize a Number" algorithm', () => {
   it('should throw a RangeError, when argument is smaller than 0', () => {
     expect(() => algorithm(-1)).to.throw(RangeError);
     expect(() => algorithm(-100)).to.throw(RangeError);
-  })
+  });
+
+  it('should throw a TypeError, when argument is a float', () => {
+    expect(() => algorithm(1.5)).to.throw(TypeError);
+    expect(() => algorithm(25.5)).to.throw(TypeError);
+  });
 
 });
