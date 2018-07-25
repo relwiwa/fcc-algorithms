@@ -28,5 +28,10 @@ describe('"Reverse a String" algorithm', () => {
     expect(algorithm('a')).to.equal('a');
   });
 
+  it('should return the reversed string for strings with length greater than 1', () => {
+    expect(algorithm('ab')).to.equal('ba');
+    expect(algorithm('abc')).to.equal('cba');
+    expect(algorithm('abcd')).to.equal('dcba');
+  });
 
 });
