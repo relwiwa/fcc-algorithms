@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const algorithm = require('../algorithms/1-convert-celsius-to-fahrenheit');
+const algorithm = require('../../algorithms-basic/1-convert-celsius-to-fahrenheit');
 
 describe('"Convert Celsius to Fahrenheit" algorithm', () => {
   it('should throw a TypeError, when argument is not a number', () => {

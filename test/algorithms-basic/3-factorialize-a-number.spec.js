@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const algorithm = require('../algorithms/3-factorialize-a-number');
+const algorithm = require('../../algorithms-basic/3-factorialize-a-number');
 
 describe('"Factorialize a Number" algorithm', () => {
   it('should throw a TypeError, when argument is not a number', () => {

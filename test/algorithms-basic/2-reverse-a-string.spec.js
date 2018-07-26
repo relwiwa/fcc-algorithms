@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const algorithm = require('../algorithms/2-reverse-a-string');
+const algorithm = require('../../algorithms-basic/2-reverse-a-string');
 
 describe('"Reverse a String" algorithm', () => {
   it('should throw a TypeError, when argument is not a string', () => {
