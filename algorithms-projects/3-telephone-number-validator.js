@@ -15,7 +15,10 @@
     otherwise return false. */
 
 const telephoneCheck = (str) => {
-
+  if (typeof str !== 'string') {
+    throw new TypeError;
+  }
+  return false;
 };
 
 module.exports = telephoneCheck;
