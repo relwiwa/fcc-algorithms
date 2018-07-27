@@ -55,5 +55,10 @@ describe('"Telephone Number Validator" algorithm', () => {
       expect(algorithm('1 (123)4567890')).to.equal(true);
       expect(algorithm('1(123)4567890')).to.equal(true);
     });
+    it('must prevent dashes before and after optional brackets around area code', () => {
+      expect(algorithm('1-(123) 456 7890')).to.equal(false);
+      expect(algorithm('-(123) 456 7890')).to.equal(false);
+      expect(algorithm('(123)-456 7890')).to.equal(false);
+    });
   });;
 });
