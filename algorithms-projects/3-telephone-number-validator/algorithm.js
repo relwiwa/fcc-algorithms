@@ -18,7 +18,8 @@ const telephoneCheck = (str) => {
   if (typeof str !== 'string') {
     throw new TypeError;
   }
-  return false;
+  const pattern = /^\d{10}$/g;
+  return pattern.test(str);
 };
 
 module.exports = telephoneCheck;

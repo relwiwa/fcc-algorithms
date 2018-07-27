@@ -15,4 +15,12 @@ describe('"Telephone Number Validator" algorithm', () => {
       expect(algorithm('123')).to.be.a('boolean');
     });
   });
+  describe('concerning the validation as an US phone number', () => {
+    it('needs to have exactly ten digits', () => {
+      expect(algorithm('1234567890')).to.equal(true);
+      expect(algorithm('12345678901')).to.equal(false);
+      expect(algorithm('123456789')).to.equal(false);
+      expect(algorithm('12345a7890')).to.equal(false);
+    });
+  });
 });
