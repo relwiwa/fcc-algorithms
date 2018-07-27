@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const algorithm = require('../../algorithms-projects/3-telephone-number-validator');
+const algorithm = require('./algorithm');
 
 describe('"Telephone Number Validator" algorithm', () => {
   describe('concerning its input and output', () => {
