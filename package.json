@@ -1,8 +1,7 @@
 {
-  "name": "fcc-basic-algorithms",
+  "name": "fcc-algorithms",
   "version": "1.0.0",
-  "description": "Basic algorithms of FreeCodeCamp Certification, done in order to get familiar with testing and test-driven development",
-  "main": "index.js",
+  "description": "Algorithms of FreeCodeCamp Certification, done again in a test-driven development manner, to get familiar with unit testing",
   "scripts": {
     "test:basics": "mocha algorithms-basic --recursive --watch",
     "test:projects": "mocha algorithms-projects --recursive --watch"
