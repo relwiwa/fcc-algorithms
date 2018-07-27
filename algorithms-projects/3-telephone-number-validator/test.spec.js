@@ -36,6 +36,17 @@ describe('"Telephone Number Validator" algorithm', () => {
     });
     it('must prevent a trailing space', () => {
       expect(algorithm(' 123 456 7890')).to.equal(false);
-    })
+    });
+    it('must allow for optional dashes between groups of numbers', () => {
+      expect(algorithm('1-123 456 7890')).to.equal(true);
+      expect(algorithm('1123-456 7890')).to.equal(true);
+      expect(algorithm('1123456-7890')).to.equal(true);
+      expect(algorithm('1 123-4567890')).to.equal(true);
+      expect(algorithm('1--123 4567890')).to.equal(false);
+      expect(algorithm('1 123 45678-90')).to.equal(false);
+    });
+    it('must prevent a trailing dash', () => {
+      expect(algorithm('-123 456 7890')).to.equal(false);
+    });
   });;
 });

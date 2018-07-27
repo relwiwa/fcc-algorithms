@@ -19,13 +19,15 @@ const telephoneCheck = (str) => {
     throw new TypeError;
   }
   /* pattern explained:
-    (1|1\s)?          optional country code, followed by space or not
-                      need to ensure, that there is no trailing space
+    (1|1(\s|-))?      optional country code, followed by space/dash or not
+                      need to ensure, that there is no trailing space/dash
                       without country code
-    \d{3}\s?          group of three digits followed by an optional
-                      space
-                      there are 2 blocks of three digits and one of four */
-  const pattern = /^(1|1\s)?\d{3}\s?\d{3}\s?\d{4}$/g;
+    \d{3}\(s|-)?      group of three digits followed by an optional
+                      space/dash
+                      there are 2 blocks of three digits and one of four
+    (\s|-)            space or dash */
+
+  const pattern = /^(1|1(\s|-))?\d{3}(\s|-)?\d{3}(\s|-)?\d{4}$/g;
   return pattern.test(str);
 };
 
