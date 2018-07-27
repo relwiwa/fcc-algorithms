@@ -48,5 +48,12 @@ describe('"Telephone Number Validator" algorithm', () => {
     it('must prevent a trailing dash', () => {
       expect(algorithm('-123 456 7890')).to.equal(false);
     });
+    it('must allow optional brackets around country code', () => {
+      expect(algorithm('(123) 456 7890')).to.equal(true);
+      expect(algorithm('(123)4567890')).to.equal(true);
+      expect(algorithm('1(123)4567890')).to.equal(true);
+      expect(algorithm('1 (123)4567890')).to.equal(true);
+      expect(algorithm('1(123)4567890')).to.equal(true);
+    });
   });;
 });

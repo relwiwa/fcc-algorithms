@@ -25,9 +25,10 @@ const telephoneCheck = (str) => {
     \d{3}\(s|-)?      group of three digits followed by an optional
                       space/dash
                       there are 2 blocks of three digits and one of four
-    (\s|-)            space or dash */
+    (\s|-)            space or dash
+    (\d{3}\)|\d{3})   area code with or without brackets */
 
-  const pattern = /^(1|1(\s|-))?\d{3}(\s|-)?\d{3}(\s|-)?\d{4}$/g;
+  const pattern = /^(1|1(\s|-))?(\(\d{3}\)|\d{3})(\s|-)?\d{3}(\s|-)?\d{4}$/g;
   return pattern.test(str);
 };
 
