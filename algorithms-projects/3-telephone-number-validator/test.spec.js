@@ -18,9 +18,13 @@ describe('"Telephone Number Validator" algorithm', () => {
   describe('concerning the validation as an US phone number', () => {
     it('needs to have exactly ten digits', () => {
       expect(algorithm('1234567890')).to.equal(true);
-      expect(algorithm('12345678901')).to.equal(false);
+      expect(algorithm('21234567890')).to.equal(false);
       expect(algorithm('123456789')).to.equal(false);
       expect(algorithm('12345a7890')).to.equal(false);
+    });
+    it('must allow an optional US country code of 1', () => {
+      expect(algorithm('11234567890')).to.equal(true);
+      expect(algorithm('21234567890')).to.equal(false);
     });
   });
 });

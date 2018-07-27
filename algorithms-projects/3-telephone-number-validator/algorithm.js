@@ -18,7 +18,7 @@ const telephoneCheck = (str) => {
   if (typeof str !== 'string') {
     throw new TypeError;
   }
-  const pattern = /^\d{10}$/g;
+  const pattern = /^1?\d{10}$/g;
   return pattern.test(str);
 };
 
