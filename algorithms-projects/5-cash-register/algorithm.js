@@ -33,5 +33,16 @@
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]] */
 
-function checkCashRegister(price, cash, cid) {}
+function checkCashRegister(price, payment, cid) {
+  if (typeof price !== 'number') {
+    throw new TypeError;
+  }
+  if (typeof payment !== 'number') {
+    throw new TypeError;
+  }
+  if (typeof cid !== 'array') {
+    throw new TypeError;
+  }
+}
 
+module.exports = checkCashRegister;
