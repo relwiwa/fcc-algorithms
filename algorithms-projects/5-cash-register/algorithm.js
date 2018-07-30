@@ -40,7 +40,7 @@ function checkCashRegister(price, payment, cid) {
   if (typeof payment !== 'number') {
     throw new TypeError;
   }
-  if (typeof cid !== 'array') {
+  if (!Array.isArray(cid)) {
     throw new TypeError;
   }
 }
