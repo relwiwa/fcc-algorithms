@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 
 const algorithm = require('./algorithm');
 
-const { DIME, NICKEL } = require('./currency-units');
+const { DIME, NICKEL } = require('./currency-units').currencyUnitsObject;
 const properCID = [[NICKEL, 2], [DIME, 5]];
 
 describe('"Cash Register" algorithm', () => {
@@ -35,9 +35,15 @@ describe('"Cash Register" algorithm', () => {
       expect(() => algorithm(5, -123, properCID)).to.throw(RangeError);
     });
     it('should throw a TypeError if one of the first fields in the cid array is not a currency unit name', () => {
-      expect(() => algorithm(5, 123, [['abc', 5]])).to.throw(TypeError);
+      expect(() => algorithm(5, 123, [[5, 5]])).to.throw(TypeError);
       expect(() => algorithm(5, 123, [[123, 5]])).to.throw(TypeError);
       expect(() => algorithm(5, 123, [[NICKEL, 5], ['abc', 3]])).to.throw(TypeError);
+    });
+    it('should throw a TypeError if one of the second fields in the cid array is not a number >= 0 for payment', () => {
+      expect(() => algorithm(5, 123, [[NICKEL, 'abc']])).to.throw(TypeError);
+      expect(() => algorithm(5, 123, [[NICKEL]])).to.throw(TypeError);
+      expect(() => algorithm(5, 123, [[NICKEL, 5], [NICKEL, true]])).to.throw(TypeError);
+      expect(() => algorithm(5, 123, [[NICKEL]])).to.throw(TypeError);
     });
   });
 });
