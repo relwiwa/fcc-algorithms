@@ -33,6 +33,8 @@
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]] */
 
+const currencyUnits = require('./currency-units');
+
 function checkCashRegister(price, payment, cid) {
   if (typeof price !== 'number') {
     throw new TypeError;
@@ -46,6 +48,19 @@ function checkCashRegister(price, payment, cid) {
   if (price < 0 || payment < 0) {
     throw new RangeError;
   }
+  if (!isProperCID(cid)) {
+    throw new TypeError;
+  }
 }
+
+const isProperCID = (cid) => {
+  for (let i = 0; i < cid.length; i++) {
+    // make sure first field is a string with one of the currency units
+    if (currencyUnits.indexOf(cid[i][0]) < 0) {
+      return false;
+    }
+  }
+  return true;
+};
 
 module.exports = checkCashRegister;
