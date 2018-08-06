@@ -25,5 +25,12 @@ describe('"Cash Register" algorithm', () => {
       expect(() => algorithm(123, 123, {})).to.throw(TypeError);
       expect(() => algorithm()).to.throw(TypeError);
     });
+    it('should throw a RangeError if price is smaller than 0', () => {
+      expect(() => algorithm(-5, 123, [])).to.throw(RangeError);
+    });
+    it('should throw a RangeError if payment is smaller than 0', () => {
+      expect(() => algorithm(5, -123, [])).to.throw(RangeError);
+    });
+
   });
 });

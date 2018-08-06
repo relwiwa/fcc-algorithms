@@ -43,6 +43,9 @@ function checkCashRegister(price, payment, cid) {
   if (!Array.isArray(cid)) {
     throw new TypeError;
   }
+  if (price < 0 || payment < 0) {
+    throw new RangeError;
+  }
 }
 
 module.exports = checkCashRegister;
