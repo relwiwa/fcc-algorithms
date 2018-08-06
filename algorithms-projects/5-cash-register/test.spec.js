@@ -21,11 +21,12 @@ describe('"Cash Register" algorithm', () => {
       expect(() => algorithm(123, {}, properCID)).to.throw(TypeError);
       expect(() => algorithm()).to.throw(TypeError);
     });
-    it('should throw a TypeError if the third argument is not an array (for cash in drawer)', () => {
+    it('should throw a TypeError if the third argument is not a two-dimensional array (for cash in drawer)', () => {
       expect(() => algorithm(123, 123, '123')).to.throw(TypeError);
       expect(() => algorithm(123, 123, 123)).to.throw(TypeError);
       expect(() => algorithm(123, 123, true)).to.throw(TypeError);
       expect(() => algorithm(123, 123, {})).to.throw(TypeError);
+      expect(() => algorithm(123, 123, [[NICKEL, 2], false])).to.throw(TypeError);
       expect(() => algorithm()).to.throw(TypeError);
     });
     it('should throw a RangeError if price is smaller than 0', () => {

@@ -55,6 +55,9 @@ function checkCashRegister(price, payment, cid) {
 
 const isProperCID = (cid) => {
   for (let i = 0; i < cid.length; i++) {
+    if (!Array.isArray(cid[i])) {
+      return false;
+    }
     // make sure first field is a string with one of the currency units
     if (currencyUnits.indexOf(cid[i][0]) < 0) {
       return false;
