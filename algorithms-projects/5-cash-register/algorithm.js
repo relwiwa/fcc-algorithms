@@ -34,8 +34,13 @@
     ["ONE HUNDRED", 100]] */
 
 const currencyOrder = require('./words').currencyOrder;
+const CurrencyUnits = require('./currency-units.model').CurrencyUnits;
+const currencyValues = require('./words').currencyValues;
+const { ONE_HUNDRED, PENNY } = require('./words').currencyNames;
+const { CLOSED, INSUFFICIENT_FUNDS, OPEN } = require('./words').cashRegisterStati;
 
-function checkCashRegister(price, payment, cid) {
+const checkCashRegister = (price, payment, cid) => {
+  // Step 1: Check input values
   if (typeof price !== 'number') {
     throw new TypeError;
   }
@@ -50,6 +55,39 @@ function checkCashRegister(price, payment, cid) {
   }
   if (!isProperCID(cid)) {
     throw new TypeError;
+  }
+  // Step 2: Calculate expected change, multiply with 100 for easier calculation
+  const expectedChange = ((payment - price) * 100).toFixed(2);
+  // Step 3: Split expected change into currency units
+  const changeInCurrencyUnits = turnChangeIntoCurrencyUnits(expectedChange);
+  const cidInCurrencyUnits = turnCidIntoCurrencyUnits(cid);
+  const realChangeInCurrencyUnits = new CurrencyUnits();
+  for (var i = currencyOrder.length - 1; i >= 0; i--) {
+    const currUnit = currencyOrder[i];
+    cidInCurrencyUnits[currUnit] -= changeInCurrencyUnits[currUnit];
+    realChangeInCurrencyUnits[currUnit] = cidInCurrencyUnits[currUnit] >= 0 ? changeInCurrencyUnits[currUnit] : 0;
+  }
+  if (cidInCurrencyUnits[PENNY] < 0) {
+    return {
+      status: INSUFFICIENT_FUNDS,
+      change: [],
+    };
+  }
+  else if (cidInCurrencyUnits[PENNY] === 0) {
+    return {
+      status: CLOSED,
+      change: [
+        [PENNY, realChangeInCurrencyUnits[PENNY]],
+      ],
+    }
+  }
+  else if (cidInCurrencyUnits[PENNY] > 0) {
+    return {
+      status: OPEN,
+      change: [
+        [PENNY, realChangeInCurrencyUnits[PENNY]],
+      ],
+    }    
   }
 }
 
@@ -69,5 +107,27 @@ const isProperCID = (cid) => {
   }
   return true;
 };
+
+const turnChangeIntoCurrencyUnits = (amount) => {
+  const changeInCurrencyUnits = new CurrencyUnits();
+  let currentAmount = amount;
+  for (let i = 0; i < currencyOrder.length - 1; i++) {
+    const currCurrency = currencyOrder[i];
+    const nextCurrency = currencyOrder[i + 1];
+    changeInCurrencyUnits[currCurrency] = currentAmount % currencyValues[nextCurrency] / currencyValues[currCurrency];
+    currentAmount -= currentAmount % currencyValues[nextCurrency];
+  }
+  changeInCurrencyUnits[ONE_HUNDRED] = currentAmount / 10000;
+  return changeInCurrencyUnits;
+}
+
+const turnCidIntoCurrencyUnits = (cid) => {
+  const cidInCurrencyUnits = new CurrencyUnits();
+  for (let i = 0; i < cid.length; i++) {
+    cidInCurrencyUnits[cid[i][0]] = cid[i][1]; 
+  }
+  return cidInCurrencyUnits;
+}
+
 
 module.exports = checkCashRegister;

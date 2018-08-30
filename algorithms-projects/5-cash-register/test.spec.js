@@ -2,7 +2,8 @@ const expect = require('chai').expect;
 
 const algorithm = require('./algorithm');
 
-const { DIME, NICKEL } = require('./words').currencyNames;
+const { DIME, NICKEL, PENNY } = require('./words').currencyNames;
+const { CLOSED, INSUFFICIENT_FUNDS, OPEN } = require('./words').cashRegisterStati;
 const properCID = [[NICKEL, 2], [DIME, 5]];
 
 describe('"Cash Register" algorithm', () => {
@@ -47,4 +48,15 @@ describe('"Cash Register" algorithm', () => {
       expect(() => algorithm(5, 123, [[NICKEL]])).to.throw(TypeError);
     });
   });
+  describe('concerning handling PENNYs', () => {
+    it(`should return ${INSUFFICIENT_FUNDS} when there are not enough pennies available`, () => {
+      expect(algorithm(4.96, 5, [[PENNY, 1]])).to.deep.equal({status: INSUFFICIENT_FUNDS, change: []});
+    });
+    it(`should return ${CLOSED} when change in pennies equals cid exactly`, () => {
+      expect(algorithm(4.96, 5, [[PENNY, 4]])).to.deep.equal({status: CLOSED, change: [[PENNY, 4]]});
+    });
+    it(`should return ${OPEN} when there is still money in cid after change in pennies is given`, () => {
+      expect(algorithm(4.96, 5, [[PENNY, 10]])).to.deep.equal({status: OPEN, change: [[PENNY, 4]]});
+    });
+  });  
 });
