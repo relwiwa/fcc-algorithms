@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 
 const algorithm = require('./algorithm');
 
-const { DIME, NICKEL } = require('./currency-units').currencyUnitsObject;
+const { DIME, NICKEL } = require('./words').currencyNames;
 const properCID = [[NICKEL, 2], [DIME, 5]];
 
 describe('"Cash Register" algorithm', () => {

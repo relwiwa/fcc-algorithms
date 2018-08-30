@@ -33,7 +33,7 @@
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]] */
 
-const currencyUnits = require('./currency-units').currencyUnitsArray;
+const currencyOrder = require('./words').currencyOrder;
 
 function checkCashRegister(price, payment, cid) {
   if (typeof price !== 'number') {
@@ -59,7 +59,7 @@ const isProperCID = (cid) => {
       return false;
     }
     // make sure first field is a string with one of the currency units
-    if (currencyUnits.indexOf(cid[i][0]) < 0) {
+    if (currencyOrder.indexOf(cid[i][0]) < 0) {
       return false;
     }
     // make sure second field is number >= 0
