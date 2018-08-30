@@ -25,7 +25,7 @@ exports.cashRegisterStati = {
 exports.currencyValues = {
   PENNY: 1,
   NICKEL: 5,
-  DIME: 1,
+  DIME: 10,
   QUARTER: 25,
   ONE: 100,
   FIVE: 500,
