@@ -64,8 +64,23 @@ const checkCashRegister = (price, payment, cid) => {
   const realChangeInCurrencyUnits = new CurrencyUnits();
   for (var i = currencyOrder.length - 1; i >= 0; i--) {
     const currUnit = currencyOrder[i];
-    cidInCurrencyUnits[currUnit] -= changeInCurrencyUnits[currUnit];
-    realChangeInCurrencyUnits[currUnit] = cidInCurrencyUnits[currUnit] >= 0 ? changeInCurrencyUnits[currUnit] : 0;
+    // there is less of a currency unit in cid than needed for change 
+    if (cidInCurrencyUnits[currUnit] < changeInCurrencyUnits[currUnit]) {
+      // when it's the final currency unit, subtract it with PENNY potentially becoming negative
+      if (currUnit === PENNY) {
+        cidInCurrencyUnits[currUnit] -= changeInCurrencyUnits[currUnit];
+      }
+      // when it's not the final currency unit yet, split it up to the next smaller currency unit
+      else {
+        const nextUnit = currencyOrder[i - 1];
+        // 2 x 1000 => 500 | 2000 / 500 = 4
+        changeInCurrencyUnits[nextUnit] += (changeInCurrencyUnits[currUnit] * currencyValues[currUnit] / currencyValues[nextUnit])
+      }     
+    }
+    else {
+      cidInCurrencyUnits[currUnit] -= changeInCurrencyUnits[currUnit];
+      realChangeInCurrencyUnits[currUnit] = changeInCurrencyUnits[currUnit];
+    }
   }
   if (cidInCurrencyUnits[PENNY] < 0) {
     return {
@@ -73,22 +88,37 @@ const checkCashRegister = (price, payment, cid) => {
       change: [],
     };
   }
-  else if (cidInCurrencyUnits[PENNY] === 0) {
+  else if (getSumOfCurrencies(cidInCurrencyUnits) === 0) {
     return {
       status: CLOSED,
-      change: [
-        [PENNY, realChangeInCurrencyUnits[PENNY]],
-      ],
+      change: getReversedChangeArray(realChangeInCurrencyUnits),
     }
   }
   else if (cidInCurrencyUnits[PENNY] > 0) {
     return {
       status: OPEN,
-      change: [
-        [PENNY, realChangeInCurrencyUnits[PENNY]],
-      ],
+      change: getReversedChangeArray(realChangeInCurrencyUnits),
     }    
   }
+}
+
+const getReversedChangeArray = (changeInCurrencyUnits) => {
+  const reversedChangeArray = [];
+  for (var i = currencyOrder.length - 1; i >= 0; i--) {
+    const currValue = changeInCurrencyUnits[currencyOrder[i]];
+    if (currValue !== 0) {
+      reversedChangeArray.push([currencyOrder[i], currValue]);
+    }
+  }
+  return reversedChangeArray;
+}
+
+const getSumOfCurrencies = (currencyUnits) => {
+  let sum = 0;
+  for (var i = 0; i < currencyOrder.length; i++) {
+    sum += currencyUnits[currencyOrder[i]];
+  }
+  return sum;
 }
 
 const isProperCID = (cid) => {
