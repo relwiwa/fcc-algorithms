@@ -50,24 +50,25 @@ describe('"Cash Register" algorithm', () => {
   });
   describe('concerning handling PENNYs', () => {
     it(`should return ${INSUFFICIENT_FUNDS} when there are not enough pennies available`, () => {
-      expect(algorithm(4.96, 5, [[PENNY, 1]])).to.deep.equal({status: INSUFFICIENT_FUNDS, change: []});
+      expect(algorithm(4.96, 5, [[PENNY, 0.01]])).to.deep.equal({status: INSUFFICIENT_FUNDS, change: []});
     });
     it(`should return ${CLOSED} when change in pennies equals cid exactly`, () => {
-      expect(algorithm(4.96, 5, [[PENNY, 4]])).to.deep.equal({status: CLOSED, change: [[PENNY, 4]]});
+      expect(algorithm(4.96, 5, [[PENNY, 0.04]])).to.deep.equal({status: CLOSED, change: [[PENNY, 0.04]]});
     });
     it(`should return ${OPEN} when there is still money in cid after change in pennies is given`, () => {
-      expect(algorithm(4.96, 5, [[PENNY, 10]])).to.deep.equal({status: OPEN, change: [[PENNY, 4]]});
+      expect(algorithm(4.96, 5, [[PENNY, 0.1]])).to.deep.equal({status: OPEN, change: [[PENNY, 0.04]]});
     });
-  });  
+  });
   describe('concerning handling NICKELs', () => {
     it(`should return ${INSUFFICIENT_FUNDS} when there are not enough nickles and/or pennies available`, () => {
       expect(algorithm(4.94, 5, [[PENNY, 0], [NICKEL, 0]])).to.deep.equal({status: INSUFFICIENT_FUNDS, change: []});
     });
     it(`should return ${CLOSED} when change in nickles and/or pennies equals cid exactly`, () => {
-      expect(algorithm(4.91, 5, [[PENNY, 4], [NICKEL, 1]])).to.deep.equal({status: CLOSED, change: [[NICKEL, 1], [PENNY, 4]]});
-    });
+      const cid = [[PENNY, 0.04], [NICKEL, 0.05]];
+      expect(algorithm(4.91, 5, cid)).to.deep.equal({status: CLOSED, change: cid});
+    }); 
     it(`should return ${OPEN} when there is still money in cid after change in nickles and/or pennies is given`, () => {
-      expect(algorithm(4.91, 5, [[PENNY, 5], [NICKEL, 2]])).to.deep.equal({status: OPEN, change: [[NICKEL, 1], [PENNY, 4]]});
+      expect(algorithm(4.91, 5, [[PENNY, 5], [NICKEL, 2]])).to.deep.equal({status: OPEN, change: [[NICKEL, 0.05], [PENNY, 0.04]]});
     });
   });
 });

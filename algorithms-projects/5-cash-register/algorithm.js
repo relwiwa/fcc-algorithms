@@ -38,7 +38,6 @@ const CurrencyUnits = require('./currency-units.model').CurrencyUnits;
 const currencyValues = require('./words').currencyValues;
 const { PENNY } = require('./words').currencyNames;
 const { CLOSED, INSUFFICIENT_FUNDS, OPEN } = require('./words').cashRegisterStati;
-const currencyNames = require('./words').currencyNames;
 const ONE_HUNDRED = 'ONE HUNDRED';
 
 const checkCashRegister = (price, payment, cid) => {
@@ -75,9 +74,13 @@ const checkCashRegister = (price, payment, cid) => {
       // when it's not the final currency unit yet, split it up to the next smaller currency unit
       else {
         const nextUnit = currencyOrder[i - 1];
-        // 2 x 1000 => 500 | 2000 / 500 = 4
-        changeInCurrencyUnits[nextUnit] += (changeInCurrencyUnits[currUnit] * currencyValues[currUnit] / currencyValues[nextUnit])
-      }     
+        const currUnitsForChange = cidInCurrencyUnits[currUnit];
+        const nextUnitsForChange = changeInCurrencyUnits[currUnit] - currUnitsForChange; 
+        const transferUnits = (nextUnitsForChange * currencyValues[currUnit] / currencyValues[nextUnit]);
+        changeInCurrencyUnits[nextUnit] += transferUnits;
+        changeInCurrencyUnits[currUnit] = 0;
+        realChangeInCurrencyUnits[currUnit] = currUnitsForChange;
+      }
     }
     else {
       cidInCurrencyUnits[currUnit] -= changeInCurrencyUnits[currUnit];
@@ -93,7 +96,7 @@ const checkCashRegister = (price, payment, cid) => {
   else if (getSumOfCurrencies(cidInCurrencyUnits) === 0) {
     return {
       status: CLOSED,
-      change: getReversedChangeArray(realChangeInCurrencyUnits),
+      change: cid,
     }
   }
   else if (cidInCurrencyUnits[PENNY] > 0) {
@@ -109,7 +112,7 @@ const getReversedChangeArray = (changeInCurrencyUnits) => {
   for (var i = currencyOrder.length - 1; i >= 0; i--) {
     const currValue = changeInCurrencyUnits[currencyOrder[i]];
     if (currValue !== 0) {
-      reversedChangeArray.push([currencyOrder[i], currValue]);
+      reversedChangeArray.push([currencyOrder[i], currValue * currencyValues[currencyOrder[i]] / 100]);
     }
   }
   return reversedChangeArray;
@@ -156,10 +159,9 @@ const turnChangeIntoCurrencyUnits = (amount) => {
 const turnCidIntoCurrencyUnits = (cid) => {
   const cidInCurrencyUnits = new CurrencyUnits();
   for (let i = 0; i < cid.length; i++) {
-    cidInCurrencyUnits[cid[i][0]] = cid[i][1]; 
+    cidInCurrencyUnits[cid[i][0]] = (cid[i][1] * 100).toFixed(0) / currencyValues[cid[i][0]]; 
   }
   return cidInCurrencyUnits;
 }
-
 
 module.exports = checkCashRegister;
