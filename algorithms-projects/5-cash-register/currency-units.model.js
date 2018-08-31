@@ -1,4 +1,5 @@
-const { PENNY, NICKEL, DIME, QUARTER, ONE, FIVE, TEN, TWENTY, ONE_HUNDRED } = require('./words').currencyNames;
+const { PENNY, NICKEL, DIME, QUARTER, ONE, FIVE, TEN, TWENTY } = require('./words').currencyNames;
+const ONE_HUNDRED = 'ONE HUNDRED';
 
 class CurrencyUnits {
   constructor(penny = 0, nickel = 0, dime = 0, quarter = 0, one = 0, five = 0, ten = 0, twenty = 0, one_hundred = 0) {
@@ -15,4 +16,3 @@ class CurrencyUnits {
 };
 
 exports.CurrencyUnits = CurrencyUnits;
-

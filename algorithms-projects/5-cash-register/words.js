@@ -6,7 +6,7 @@ const ONE = 'ONE';
 const FIVE = 'FIVE';
 const TEN = 'TEN';
 const TWENTY = 'TWENTY';
-const ONE_HUNDRED = 'ONE_HUNDRED';
+const ONE_HUNDRED = 'ONE HUNDRED';
 
 exports.currencyNames = { PENNY, NICKEL, DIME, QUARTER, ONE, FIVE, TEN, TWENTY, ONE_HUNDRED };
 
@@ -22,7 +22,7 @@ exports.cashRegisterStati = {
   OPEN,
 };
 
-exports.currencyValues = {
+const currencyValues = {
   PENNY: 1,
   NICKEL: 5,
   DIME: 10,
@@ -31,5 +31,7 @@ exports.currencyValues = {
   FIVE: 500,
   TEN: 1000,
   TWENTY: 2000,
-  ONE_HUNDRED: 10000,
 };
+currencyValues[ONE_HUNDRED] = 10000;
+
+exports.currencyValues = currencyValues;

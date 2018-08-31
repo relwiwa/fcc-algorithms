@@ -36,8 +36,10 @@
 const currencyOrder = require('./words').currencyOrder;
 const CurrencyUnits = require('./currency-units.model').CurrencyUnits;
 const currencyValues = require('./words').currencyValues;
-const { ONE_HUNDRED, PENNY } = require('./words').currencyNames;
+const { PENNY } = require('./words').currencyNames;
 const { CLOSED, INSUFFICIENT_FUNDS, OPEN } = require('./words').cashRegisterStati;
+const currencyNames = require('./words').currencyNames;
+const ONE_HUNDRED = 'ONE HUNDRED';
 
 const checkCashRegister = (price, payment, cid) => {
   // Step 1: Check input values
